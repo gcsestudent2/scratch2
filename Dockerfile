@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -12,7 +12,7 @@ COPY . ./dotnetapp/
 WORKDIR /app/dotnetapp
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/runtime:9.0 AS runtime
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/dotnetapp/out ./
 ENTRYPOINT ["dotnet", "hello-world-dotnet.dll"]
